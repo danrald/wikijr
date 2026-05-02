@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link href="./src/output.css" rel="stylesheet">
+  <title>JS Sidebar Layout</title>
+</head>
+
+<body class="bg-gray-100 overflow-x-hidden">
+
+  <!-- Top Nav -->
+  <header class="fixed top-0 left-0 right-0 z-50 h-16 bg-white shadow flex items-center px-4">
+    <button
+      id="sidebarToggle"
+      aria-expanded="true"
+      class="text-2xl p-2 rounded hover:bg-gray-200"
+    >
+      ☰
+    </button>
+    <span class="ml-4 font-semibold">App</span>
+  </header>
+
+  <!-- Sidebar -->
+  <aside
+    id="sidebar"
+    class="
+      fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-48
+      bg-gray-800 text-white
+      transform transition-transform duration-300
+    "
+  >
+    <nav class="p-4 space-y-2">
+      <a class="block p-2 rounded hover:bg-gray-600" href="#">Home</a>
+      <a class="block p-2 rounded hover:bg-gray-600" href="#">Link 1</a>
+      <a class="block p-2 rounded hover:bg-gray-600" href="#">Link 2</a>
+    </nav>
+  </aside>
+
+  <!-- Main -->
+  <main
+    id="main"
+    class="
+      pt-16 transition-all duration-300
+      min-h-screen
+    "
+  >
+    <div class="p-6">
+      Main content goes here
+    </div>
+  </main>
+
+  <!-- Backdrop (mobile only) -->
+  <div
+    id="backdrop"
+    class="
+      fixed inset-0 z-30 bg-black/50 opacity-0 pointer-events-none
+      transition-opacity duration-300
+    "
+  ></div>
+
+  <script src="sidebar2.js"></script>
+</body>
+</html>
