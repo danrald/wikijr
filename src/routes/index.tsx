@@ -1,12 +1,11 @@
 import { createFileRoute } from '@tanstack/react-router'
 import ShellLayout from '../components/ShellLayout'
+import HomeContent from '../components/HomeContent'
 
-export const Route = createFileRoute('/')({ component: App })
-
-function App() {
-  return (
+export const Route = createFileRoute('/')({
+  component: () => (
     <ShellLayout>
-      <p>Main content goes here.</p>
+      <HomeContent />
     </ShellLayout>
-  )
-}
+  ),
+})

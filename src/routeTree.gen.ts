@@ -11,7 +11,10 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexcopyRouteImport } from './routes/index copy'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as ShellTeamRouteImport } from './routes/_shell.team'
+import { Route as ShellArticlesRouteImport } from './routes/_shell.articles'
 
 const IndexcopyRoute = IndexcopyRouteImport.update({
   id: '/index copy',
@@ -23,38 +26,67 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ShellRoute = ShellRouteImport.update({
+  id: '/_shell',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const IndexRoute = IndexRouteImport.update({
   id: '/',
   path: '/',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ShellTeamRoute = ShellTeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => ShellRoute,
+} as any)
+const ShellArticlesRoute = ShellArticlesRouteImport.update({
+  id: '/articles',
+  path: '/articles',
+  getParentRoute: () => ShellRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
+  '/articles': typeof ShellArticlesRoute
+  '/team': typeof ShellTeamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
+  '/articles': typeof ShellArticlesRoute
+  '/team': typeof ShellTeamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
+  '/_shell': typeof ShellRouteWithChildren
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
+  '/_shell/articles': typeof ShellArticlesRoute
+  '/_shell/team': typeof ShellTeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/index copy'
+  fullPaths: '/' | '/about' | '/index copy' | '/articles' | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/index copy'
-  id: '__root__' | '/' | '/about' | '/index copy'
+  to: '/' | '/about' | '/index copy' | '/articles' | '/team'
+  id:
+    | '__root__'
+    | '/'
+    | '/_shell'
+    | '/about'
+    | '/index copy'
+    | '/_shell/articles'
+    | '/_shell/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
+  ShellRoute: typeof ShellRouteWithChildren
   AboutRoute: typeof AboutRoute
   IndexcopyRoute: typeof IndexcopyRoute
 }
@@ -75,6 +107,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell': {
+      id: '/_shell'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof ShellRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/': {
       id: '/'
       path: '/'
@@ -82,11 +121,38 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/_shell/team': {
+      id: '/_shell/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof ShellTeamRouteImport
+      parentRoute: typeof ShellRoute
+    }
+    '/_shell/articles': {
+      id: '/_shell/articles'
+      path: '/articles'
+      fullPath: '/articles'
+      preLoaderRoute: typeof ShellArticlesRouteImport
+      parentRoute: typeof ShellRoute
+    }
   }
 }
 
+interface ShellRouteChildren {
+  ShellArticlesRoute: typeof ShellArticlesRoute
+  ShellTeamRoute: typeof ShellTeamRoute
+}
+
+const ShellRouteChildren: ShellRouteChildren = {
+  ShellArticlesRoute: ShellArticlesRoute,
+  ShellTeamRoute: ShellTeamRoute,
+}
+
+const ShellRouteWithChildren = ShellRoute._addFileChildren(ShellRouteChildren)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
+  ShellRoute: ShellRouteWithChildren,
   AboutRoute: AboutRoute,
   IndexcopyRoute: IndexcopyRoute,
 }

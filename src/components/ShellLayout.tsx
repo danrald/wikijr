@@ -1,25 +1,38 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useLayoutEffect } from 'react'
+import { Outlet } from '@tanstack/react-router'
 import TopNav from './TopNav'
 import SideNav from './SideNav'
 
+// SSR-safe: useLayoutEffect in browser, useEffect on server
+const useIsomorphicLayoutEffect =
+  typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
 interface ShellLayoutProps {
-  children: React.ReactNode
+  children?: React.ReactNode
 }
 
 export default function ShellLayout({ children }: ShellLayoutProps) {
   const [isDesktop, setIsDesktop] = useState(false)
   const [sidebarOpen, setSidebarOpen] = useState(false)
+  const [animate, setAnimate] = useState(false)
 
-  useEffect(() => {
+  // Runs synchronously before first paint — sidebar snaps to correct position
+  // without animating, avoiding the open-on-mount flash.
+  useIsomorphicLayoutEffect(() => {
     const mq = window.matchMedia('(min-width: 1024px)')
     setIsDesktop(mq.matches)
     setSidebarOpen(mq.matches)
+  }, [])
 
+  // Runs after first paint — safe to enable transitions now.
+  useEffect(() => {
+    const mq = window.matchMedia('(min-width: 1024px)')
     const handler = (e: MediaQueryListEvent) => {
       setIsDesktop(e.matches)
       setSidebarOpen(e.matches)
     }
     mq.addEventListener('change', handler)
+    setAnimate(true)
     return () => mq.removeEventListener('change', handler)
   }, [])
 
@@ -29,15 +42,17 @@ export default function ShellLayout({ children }: ShellLayoutProps) {
   }
 
   return (
-    <div className="bg-gray-100 overflow-x-hidden">
+    <div className="bg-grey-600">
       <TopNav sidebarOpen={sidebarOpen} onToggle={toggle} />
-      <SideNav open={sidebarOpen} />
+      <SideNav open={sidebarOpen} animate={animate} onNavigate={closeOnMobile} />
       <main
         className={`pt-16 transition-all duration-300 min-h-screen ${
           sidebarOpen && isDesktop ? 'ml-48' : 'ml-0'
         }`}
       >
-        <div className="p-6">{children}</div>
+        <div className="p-6">
+          {children ?? <Outlet />}
+        </div>
       </main>
       <div
         onClick={closeOnMobile}
