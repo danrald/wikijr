@@ -14,6 +14,7 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as ShellRouteImport } from './routes/_shell'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ShellTeamRouteImport } from './routes/_shell.team'
+import { Route as ShellSupabaseCallRouteImport } from './routes/_shell.supabase-call'
 import { Route as ShellArticlesRouteImport } from './routes/_shell.articles'
 
 const IndexcopyRoute = IndexcopyRouteImport.update({
@@ -40,6 +41,11 @@ const ShellTeamRoute = ShellTeamRouteImport.update({
   path: '/team',
   getParentRoute: () => ShellRoute,
 } as any)
+const ShellSupabaseCallRoute = ShellSupabaseCallRouteImport.update({
+  id: '/supabase-call',
+  path: '/supabase-call',
+  getParentRoute: () => ShellRoute,
+} as any)
 const ShellArticlesRoute = ShellArticlesRouteImport.update({
   id: '/articles',
   path: '/articles',
@@ -51,6 +57,7 @@ export interface FileRoutesByFullPath {
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
   '/articles': typeof ShellArticlesRoute
+  '/supabase-call': typeof ShellSupabaseCallRoute
   '/team': typeof ShellTeamRoute
 }
 export interface FileRoutesByTo {
@@ -58,6 +65,7 @@ export interface FileRoutesByTo {
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
   '/articles': typeof ShellArticlesRoute
+  '/supabase-call': typeof ShellSupabaseCallRoute
   '/team': typeof ShellTeamRoute
 }
 export interface FileRoutesById {
@@ -67,13 +75,20 @@ export interface FileRoutesById {
   '/about': typeof AboutRoute
   '/index copy': typeof IndexcopyRoute
   '/_shell/articles': typeof ShellArticlesRoute
+  '/_shell/supabase-call': typeof ShellSupabaseCallRoute
   '/_shell/team': typeof ShellTeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/index copy' | '/articles' | '/team'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/index copy'
+    | '/articles'
+    | '/supabase-call'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/index copy' | '/articles' | '/team'
+  to: '/' | '/about' | '/index copy' | '/articles' | '/supabase-call' | '/team'
   id:
     | '__root__'
     | '/'
@@ -81,6 +96,7 @@ export interface FileRouteTypes {
     | '/about'
     | '/index copy'
     | '/_shell/articles'
+    | '/_shell/supabase-call'
     | '/_shell/team'
   fileRoutesById: FileRoutesById
 }
@@ -128,6 +144,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShellTeamRouteImport
       parentRoute: typeof ShellRoute
     }
+    '/_shell/supabase-call': {
+      id: '/_shell/supabase-call'
+      path: '/supabase-call'
+      fullPath: '/supabase-call'
+      preLoaderRoute: typeof ShellSupabaseCallRouteImport
+      parentRoute: typeof ShellRoute
+    }
     '/_shell/articles': {
       id: '/_shell/articles'
       path: '/articles'
@@ -140,11 +163,13 @@ declare module '@tanstack/react-router' {
 
 interface ShellRouteChildren {
   ShellArticlesRoute: typeof ShellArticlesRoute
+  ShellSupabaseCallRoute: typeof ShellSupabaseCallRoute
   ShellTeamRoute: typeof ShellTeamRoute
 }
 
 const ShellRouteChildren: ShellRouteChildren = {
   ShellArticlesRoute: ShellArticlesRoute,
+  ShellSupabaseCallRoute: ShellSupabaseCallRoute,
   ShellTeamRoute: ShellTeamRoute,
 }
 

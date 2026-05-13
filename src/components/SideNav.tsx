@@ -10,6 +10,7 @@ const links = [
   { label: 'Home', to: '/' },
   { label: 'Articles', to: '/articles' },
   { label: 'Team', to: '/team' },
+  { label: 'Supabase Call', to: '/supabase-call' },
 ] as const
 
 export default function SideNav({ open, animate, onNavigate }: SideNavProps) {
