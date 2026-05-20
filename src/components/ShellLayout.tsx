@@ -42,12 +42,12 @@ export default function ShellLayout({ children }: ShellLayoutProps) {
   }
 
   return (
-    <div className="bg-grey-600">
+    <div className="bg-slate-50 min-h-screen">
       <TopNav sidebarOpen={sidebarOpen} onToggle={toggle} />
       <SideNav open={sidebarOpen} animate={animate} onNavigate={closeOnMobile} />
       <main
         className={`pt-16 transition-all duration-300 min-h-screen ${
-          sidebarOpen && isDesktop ? 'ml-48' : 'ml-0'
+          sidebarOpen && isDesktop ? 'ml-56' : 'ml-0'
         }`}
       >
         <div className="p-6">
