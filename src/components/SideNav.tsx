@@ -1,5 +1,5 @@
 import { Link } from '@tanstack/react-router'
-import { LayoutDashboard, FileText, Users, Database } from 'lucide-react'
+import { LayoutDashboard, Database } from 'lucide-react'
 
 interface SideNavProps {
   open: boolean
@@ -9,8 +9,6 @@ interface SideNavProps {
 
 const links = [
   { label: 'Home', to: '/', icon: LayoutDashboard },
-  { label: 'Articles', to: '/articles', icon: FileText },
-  { label: 'Team', to: '/team', icon: Users },
   { label: 'Supabase Call', to: '/supabase-call', icon: Database },
 ] as const
 
