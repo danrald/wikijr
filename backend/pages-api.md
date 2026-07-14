@@ -116,3 +116,7 @@ await pages.restoreVersion('version-uuid')
 - `tags` — stored as a Postgres `text[]` array. Filter using array containment.
 - `parent_id` — self-referential foreign key for nested/hierarchical pages.
 - `page_versions` — append-only history table. Never written to directly; managed by a DB trigger on `pages`.
+
+
+#Tests
+node --env-file=.env pagesServiceTest.js

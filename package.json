@@ -9,7 +9,8 @@
     "dev": "vite dev --port 3000",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "vitest run"
+    "test": "vitest run",
+    "gen:types": "cd backend && npx supabase gen types typescript --local > ../src/types/database.ts"
   },
   "dependencies": {
     "@supabase/supabase-js": "^2.105.4",
