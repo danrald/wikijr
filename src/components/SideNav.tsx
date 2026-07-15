@@ -15,7 +15,7 @@ const links = [
 export default function SideNav({ open, animate, onNavigate }: SideNavProps) {
   return (
     <aside
-      className={`fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-56 bg-slate-900 border-r border-slate-700 transform ${
+      className={`fixed top-16 left-0 z-40 h-[calc(100vh-4rem)] w-56 bg-white border-r border-slate-200 transform ${
         animate ? 'transition-transform duration-300' : ''
       } ${open ? 'translate-x-0' : '-translate-x-full'}`}
     >
@@ -25,8 +25,8 @@ export default function SideNav({ open, animate, onNavigate }: SideNavProps) {
             key={to}
             to={to}
             onClick={onNavigate}
-            className="flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-slate-400 hover:text-white hover:bg-slate-800 transition-colors"
-            activeProps={{ className: 'flex items-center gap-3 px-3 py-2 rounded-lg text-sm text-white bg-indigo-600 hover:bg-indigo-500' }}
+            className="flex items-center gap-3 px-3 py-2 text-sm text-[#212529] hover:bg-slate-100 transition-colors"
+            activeProps={{ className: 'flex items-center gap-3 px-3 py-2 text-sm text-white bg-slate-400 hover:bg-indigo-500' }}
             activeOptions={{ exact: to === '/' }}
           >
             <Icon size={16} />

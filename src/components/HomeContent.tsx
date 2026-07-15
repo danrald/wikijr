@@ -11,13 +11,13 @@ export default function HomeContent() {
           { label: 'Contributors', value: '28' },
           { label: 'Edits this week', value: '67' },
         ].map((stat) => (
-          <div key={stat.label} className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+          <div key={stat.label} className="border border-gray-200 bg-white p-6 shadow-sm">
             <p className="text-sm text-gray-500">{stat.label}</p>
             <p className="mt-1 text-4xl font-semibold text-gray-900">{stat.value}</p>
           </div>
         ))}
       </div>
-      <div className="rounded-xl border border-gray-200 bg-white p-6 shadow-sm">
+      <div className="border border-gray-200 bg-white p-6 shadow-sm">
         <h2 className="text-lg font-semibold text-gray-800 mb-3">Recent Activity</h2>
         <ul className="divide-y divide-gray-100">
           {[

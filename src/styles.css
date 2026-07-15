@@ -121,22 +121,23 @@ body::after {
   mask-image: radial-gradient(circle at 50% 30%, black, transparent 78%);
 }
 
-a {
-  color: var(--lagoon-deep);
-  text-decoration-color: rgba(50, 143, 151, 0.4);
-  text-decoration-thickness: 1px;
-  text-underline-offset: 2px;
-}
+@layer base {
+  a {
+    color: var(--lagoon-deep);
+    text-decoration-color: rgba(50, 143, 151, 0.4);
+    text-decoration-thickness: 1px;
+    text-underline-offset: 2px;
+  }
 
-a:hover {
-  color: #246f76;
+  a:hover {
+    color: #246f76;
+  }
 }
 
 code {
   font-size: 0.9em;
   border: 1px solid var(--line);
   background: color-mix(in oklab, var(--surface-strong) 82%, white 18%);
-  border-radius: 7px;
   padding: 2px 7px;
 }
 
