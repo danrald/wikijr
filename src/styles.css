@@ -6,6 +6,11 @@
   --font-sans: "Manrope", ui-sans-serif, system-ui, sans-serif;
 }
 
+/* The theme init script resolves light/dark (incl. system preference) to a
+   .light/.dark class on <html>, so dark: must follow that class, not the
+   media query. */
+@custom-variant dark (&:where(.dark, .dark *));
+
 :root {
   --sea-ink: #173a40;
   --sea-ink-soft: #416166;

@@ -48,23 +48,23 @@ function SupabaseCallPage() {
       {error && <p className="text-red-500">{error}</p>}
 
       {rows && (
-        <div className="border border-gray-200 bg-white shadow-sm overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200 text-sm">
-            <thead className="bg-gray-50">
+        <div className="border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
+          <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700 text-sm">
+            <thead className="bg-gray-50 dark:bg-slate-800">
               <tr>
                 {['ID', 'Created At', 'Name'].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-gray-500 uppercase tracking-wide text-xs">
+                  <th key={h} className="px-4 py-3 text-left font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wide text-xs">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100">
+            <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
               {rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50 cursor-pointer">
-                  <td className="px-4 py-3 font-medium text-blue-600">{row.id}</td>
-                  <td className="px-4 py-3 text-gray-500">{new Date(row.created_at).toLocaleString()}</td>
-                  <td className="px-4 py-3 text-gray-500">{row.Name}</td>
+                <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800 cursor-pointer">
+                  <td className="px-4 py-3 font-medium text-blue-600 dark:text-blue-400">{row.id}</td>
+                  <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{new Date(row.created_at).toLocaleString()}</td>
+                  <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{row.Name}</td>
                 </tr>
               ))}
             </tbody>

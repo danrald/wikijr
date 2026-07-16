@@ -13,6 +13,7 @@
     "gen:types": "cd backend && npx supabase gen types typescript --local > ../src/types/database.ts"
   },
   "dependencies": {
+    "@base-ui/react": "^1.6.0",
     "@supabase/supabase-js": "^2.105.4",
     "@tailwindcss/vite": "^4.1.18",
     "@tanstack/react-devtools": "latest",
