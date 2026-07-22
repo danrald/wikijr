@@ -14,7 +14,13 @@ const config = defineConfig({
     netlify(),
     tsconfigPaths({ projects: ['./tsconfig.json'] }),
     tailwindcss(),
-    tanstackStart(),
+    tanstackStart({
+      router: {
+        // Keep *.test.tsx out of the generated route tree — src/routes holds
+        // both route files and their colocated tests.
+        routeFileIgnorePattern: '\\.test\\.',
+      },
+    }),
     viteReact(),
   ],
 })

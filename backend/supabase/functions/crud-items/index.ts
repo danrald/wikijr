@@ -4,6 +4,7 @@ import { createClient } from 'jsr:@supabase/supabase-js@2'
 const corsHeaders = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers': 'authorization, x-client-info, apikey, content-type',
+  'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
 }
 
 Deno.serve(async (req) => {
@@ -32,7 +33,7 @@ Deno.serve(async (req) => {
 
     switch (req.method) {
       case 'GET': {
-        const query = supabase.from('items').select('*')
+        const query = supabase.from('Test').select('*').order('id', { ascending: true })
         if (id) query.eq('id', id)
         const { data, error } = await query
         if (error) throw error
@@ -43,7 +44,7 @@ Deno.serve(async (req) => {
 
       case 'POST': {
         const body = await req.json()
-        const { data, error } = await supabase.from('items').insert(body).select()
+        const { data, error } = await supabase.from('Test').insert(body).select()
         if (error) throw error
         return new Response(JSON.stringify(data), {
           status: 201,
@@ -54,7 +55,7 @@ Deno.serve(async (req) => {
       case 'PUT': {
         if (!id) throw new Error('id query param is required')
         const body = await req.json()
-        const { data, error } = await supabase.from('items').update(body).eq('id', id).select()
+        const { data, error } = await supabase.from('Test').update(body).eq('id', id).select()
         if (error) throw error
         return new Response(JSON.stringify(data), {
           headers: { ...corsHeaders, 'Content-Type': 'application/json' },
@@ -63,9 +64,12 @@ Deno.serve(async (req) => {
 
       case 'DELETE': {
         if (!id) throw new Error('id query param is required')
-        const { error } = await supabase.from('items').delete().eq('id', id)
+        const { error } = await supabase.from('Test').delete().eq('id', id)
         if (error) throw error
-        return new Response(null, { status: 204, headers: corsHeaders })
+        // JSON body (not 204) so supabase.functions.invoke can parse the response
+        return new Response(JSON.stringify({ success: true }), {
+          headers: { ...corsHeaders, 'Content-Type': 'application/json' },
+        })
       }
 
       default:
