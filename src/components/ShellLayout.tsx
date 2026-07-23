@@ -42,7 +42,7 @@ export default function ShellLayout({ children }: ShellLayoutProps) {
   }
 
   return (
-    <div className="bg-slate-50 dark:bg-slate-950 text-slate-900 dark:text-slate-100 min-h-screen">
+    <div className="bg-[var(--bg-base)] text-sea-ink min-h-screen">
       <TopNav sidebarOpen={sidebarOpen} onToggle={toggle} />
       <SideNav open={sidebarOpen} animate={animate} onNavigate={closeOnMobile} />
       <main

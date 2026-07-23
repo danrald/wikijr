@@ -31,6 +31,7 @@
   --link-bg-hover: rgba(255, 255, 255, 0.9);
   --hero-a: rgba(79, 184, 178, 0.36);
   --hero-b: rgba(47, 106, 74, 0.2);
+  --danger: #b42318;
 }
 
 :root[data-theme="dark"] {
@@ -53,6 +54,7 @@
   --link-bg-hover: rgba(24, 44, 49, 0.8);
   --hero-a: rgba(96, 215, 207, 0.18);
   --hero-b: rgba(110, 200, 154, 0.12);
+  --danger: #f28b82;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -76,7 +78,28 @@
     --link-bg-hover: rgba(24, 44, 49, 0.8);
     --hero-a: rgba(96, 215, 207, 0.18);
     --hero-b: rgba(110, 200, 154, 0.12);
+    --danger: #f28b82;
   }
+}
+
+/* Expose the palette as Tailwind color utilities (bg-lagoon, text-sea-ink,
+   border-line, …). `inline` keeps the var() reference so utilities follow the
+   light/dark values above at runtime. */
+@theme inline {
+  --color-sea-ink: var(--sea-ink);
+  --color-sea-ink-soft: var(--sea-ink-soft);
+  --color-lagoon: var(--lagoon);
+  --color-lagoon-deep: var(--lagoon-deep);
+  --color-palm: var(--palm);
+  --color-sand: var(--sand);
+  --color-foam: var(--foam);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--line);
+  --color-chip: var(--chip-bg);
+  --color-chip-line: var(--chip-line);
+  --color-link-hover: var(--link-bg-hover);
+  --color-danger: var(--danger);
 }
 
 * {
@@ -188,10 +211,143 @@ pre code {
 }
 
 button,
+input,
 .island-shell,
 a {
   transition: background-color 180ms ease, color 180ms ease, border-color 180ms ease,
     transform 180ms ease;
+}
+
+/* --- Default controls ------------------------------------------------------
+   Shared classes for buttons and form controls, built on the palette tokens.
+   Compose as `btn btn-primary`, `btn btn-ghost`, `btn-link btn-link-danger`.
+   Utilities can override per-use (e.g. `input px-2 py-1`). */
+@layer components {
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border: 1px solid transparent;
+    background: transparent;
+    color: var(--sea-ink);
+    cursor: pointer;
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn:focus-visible {
+    outline: 2px solid var(--lagoon-deep);
+    outline-offset: 2px;
+  }
+
+  .btn-primary {
+    background: var(--lagoon-deep);
+    color: var(--foam);
+  }
+
+  .btn-primary:not(:disabled):hover {
+    background: color-mix(in oklab, var(--lagoon-deep) 84%, var(--sea-ink) 16%);
+  }
+
+  .btn-ghost {
+    border-color: var(--chip-line);
+    background: var(--chip-bg);
+    box-shadow: 0 8px 22px rgba(30, 90, 72, 0.08);
+  }
+
+  .btn-ghost:not(:disabled):hover {
+    background: var(--link-bg-hover);
+    transform: translateY(-2px);
+  }
+
+  /* Square icon-only button (nav toggles, social links). */
+  .btn-icon {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0.5rem;
+    border: 0;
+    background: transparent;
+    color: var(--sea-ink-soft);
+    cursor: pointer;
+  }
+
+  .btn-icon:not(:disabled):hover {
+    background: var(--link-bg-hover);
+    color: var(--sea-ink);
+  }
+
+  .btn-icon:focus-visible {
+    outline: 2px solid var(--lagoon-deep);
+    outline-offset: 2px;
+  }
+
+  /* Inline text button (table row actions). */
+  .btn-link {
+    padding: 0;
+    border: 0;
+    background: none;
+    font-size: inherit;
+    font-weight: 500;
+    color: var(--lagoon-deep);
+    cursor: pointer;
+  }
+
+  .btn-link:not(:disabled):hover {
+    text-decoration: underline;
+  }
+
+  .btn-link:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .btn-link-muted {
+    color: var(--sea-ink-soft);
+  }
+
+  .btn-link-danger {
+    color: var(--danger);
+  }
+
+  .input {
+    padding: 0.5rem 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid var(--line);
+    background: var(--surface-strong);
+    color: var(--sea-ink);
+  }
+
+  .input::placeholder {
+    color: color-mix(in oklab, var(--sea-ink-soft) 75%, transparent);
+  }
+
+  .input:focus {
+    outline: none;
+    border-color: var(--lagoon-deep);
+  }
+
+  .input:disabled {
+    opacity: 0.5;
+  }
+
+  /* Floating surface for menus, popovers, tooltips. */
+  .popup {
+    border: 1px solid var(--line);
+    background: var(--surface-strong);
+    color: var(--sea-ink);
+    box-shadow:
+      0 18px 34px rgba(30, 90, 72, 0.14),
+      0 4px 14px rgba(23, 58, 64, 0.1);
+    backdrop-filter: blur(4px);
+  }
 }
 
 .island-kicker {

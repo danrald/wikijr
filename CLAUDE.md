@@ -19,6 +19,7 @@ Wiki app: TanStack Start (React 19, Vite, Tailwind 4) frontend at the repo root,
 
 ## Conventions
 
+- Styling: `src/styles.css` is the design system. Palette lives as CSS variables in `:root` (light/dark), exposed as Tailwind utilities via `@theme inline` (`text-sea-ink`, `bg-lagoon-deep`, `border-line`, …). Buttons and form controls use the shared classes in `@layer components` — `.btn` + `.btn-primary`/`.btn-ghost`, `.btn-icon`, `.btn-link` (+ `-muted`/`-danger`), `.input`, `.popup` — not ad-hoc utility stacks or raw gray/slate/blue colors.
 - RLS: all `pages` access requires an authenticated user; `page_versions` is read-only from the client.
 - Backend syncing goes through GitHub (remote `supabaseproject` → https://github.com/danrald/supabaseproject.git), not the local `C:\_dev\supabaseproject` folder — git refuses pushes to a checked-out branch there. After pushing, run `git pull` inside that folder to update it.
 - To push backend changes made here back to the backend repo: `git subtree push --prefix=backend supabaseproject main`.

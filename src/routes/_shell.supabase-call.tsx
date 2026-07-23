@@ -98,7 +98,7 @@ export function SupabaseCallPage() {
 
   return (
     <div className="p-6 space-y-4">
-      <h1 className="text-2xl font-bold">Supabase Call</h1>
+      <h1 className="text-2xl font-bold text-sea-ink">Supabase Call</h1>
 
       <div className="flex gap-2">
         <input
@@ -107,44 +107,44 @@ export function SupabaseCallPage() {
           onChange={(e) => setNewName(e.target.value)}
           onKeyDown={(e) => { if (e.key === 'Enter') createRow() }}
           placeholder="New record name"
-          className="px-3 py-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 text-sm focus:outline-none focus:border-blue-600 dark:focus:border-blue-400"
+          className="input"
         />
         <button
           onClick={createRow}
           disabled={busy || !newName.trim()}
-          className="px-4 py-2 bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50 text-sm"
+          className="btn btn-primary"
         >
           Add
         </button>
         <button
           onClick={fetchData}
           disabled={loading || busy}
-          className="px-4 py-2 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 hover:bg-gray-50 dark:hover:bg-slate-800 disabled:opacity-50 text-sm"
+          className="btn btn-ghost"
         >
           {loading ? 'Loading...' : 'Refresh'}
         </button>
       </div>
 
-      {error && <p className="text-red-500">{error}</p>}
+      {error && <p className="text-danger">{error}</p>}
 
       {rows && (
-        <div className="border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 shadow-sm overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200 dark:divide-slate-700 text-sm">
-            <thead className="bg-gray-50 dark:bg-slate-800">
+        <div className="island-shell overflow-hidden">
+          <table className="min-w-full divide-y divide-line text-sm">
+            <thead className="bg-sand">
               <tr>
                 {['ID', 'Created At', 'Name', 'Actions'].map((h) => (
-                  <th key={h} className="px-4 py-3 text-left font-medium text-gray-500 dark:text-slate-400 uppercase tracking-wide text-xs">
+                  <th key={h} className="px-4 py-3 text-left font-medium text-sea-ink-soft uppercase tracking-wide text-xs">
                     {h}
                   </th>
                 ))}
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-100 dark:divide-slate-800">
+            <tbody className="divide-y divide-line">
               {rows.map((row) => (
-                <tr key={row.id} className="hover:bg-gray-50 dark:hover:bg-slate-800">
-                  <td className="px-4 py-3 font-medium text-blue-600 dark:text-blue-400">{row.id}</td>
-                  <td className="px-4 py-3 text-gray-500 dark:text-slate-400">{new Date(row.created_at).toLocaleString()}</td>
-                  <td className="px-4 py-3 text-gray-500 dark:text-slate-400">
+                <tr key={row.id} className="hover:bg-link-hover">
+                  <td className="px-4 py-3 font-medium text-lagoon-deep">{row.id}</td>
+                  <td className="px-4 py-3 text-sea-ink-soft">{new Date(row.created_at).toLocaleString()}</td>
+                  <td className="px-4 py-3 text-sea-ink-soft">
                     {editingId === row.id ? (
                       <input
                         type="text"
@@ -155,7 +155,7 @@ export function SupabaseCallPage() {
                           if (e.key === 'Escape') setEditingId(null)
                         }}
                         autoFocus
-                        className="px-2 py-1 border border-gray-200 dark:border-slate-700 bg-white dark:bg-slate-900 w-full focus:outline-none focus:border-blue-600 dark:focus:border-blue-400"
+                        className="input w-full px-2 py-1"
                       />
                     ) : (
                       row.Name
@@ -167,14 +167,14 @@ export function SupabaseCallPage() {
                         <button
                           onClick={() => updateRow(row.id)}
                           disabled={busy}
-                          className="text-blue-600 dark:text-blue-400 hover:underline disabled:opacity-50"
+                          className="btn-link"
                         >
                           Save
                         </button>
                         <button
                           onClick={() => setEditingId(null)}
                           disabled={busy}
-                          className="text-gray-500 dark:text-slate-400 hover:underline disabled:opacity-50"
+                          className="btn-link btn-link-muted"
                         >
                           Cancel
                         </button>
@@ -184,14 +184,14 @@ export function SupabaseCallPage() {
                         <button
                           onClick={() => startEdit(row)}
                           disabled={busy}
-                          className="text-blue-600 dark:text-blue-400 hover:underline disabled:opacity-50"
+                          className="btn-link"
                         >
                           Edit
                         </button>
                         <button
                           onClick={() => deleteRow(row.id)}
                           disabled={busy}
-                          className="text-red-500 hover:underline disabled:opacity-50"
+                          className="btn-link btn-link-danger"
                         >
                           Delete
                         </button>
@@ -202,7 +202,7 @@ export function SupabaseCallPage() {
               ))}
               {rows.length === 0 && (
                 <tr>
-                  <td colSpan={4} className="px-4 py-6 text-center text-gray-400 dark:text-slate-500">
+                  <td colSpan={4} className="px-4 py-6 text-center text-sea-ink-soft">
                     No records yet — add one above.
                   </td>
                 </tr>
