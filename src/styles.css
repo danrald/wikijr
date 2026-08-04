@@ -56,13 +56,13 @@
   --hero-b: rgba(110, 200, 154, 0.12);
   --danger: #f28b82;
 }
-
+/*#3f6a65;*/
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme="light"]) {
     --sea-ink: #d7ece8;
     --sea-ink-soft: #afcdc8;
     --lagoon: #60d7cf;
-    --lagoon-deep: #8de5db;
+    --lagoon-deep: #3f6a65;
     --palm: #6ec89a;
     --sand: #0f1a1e;
     --foam: #101d22;
@@ -253,7 +253,7 @@ a {
   }
 
   .btn-primary:not(:disabled):hover {
-    background: color-mix(in oklab, var(--lagoon-deep) 84%, var(--sea-ink) 16%);
+    background: color-mix(in oklab, var(--lagoon-deep) 50%, var(--sea-ink) 16%);
   }
 
   .btn-ghost {
